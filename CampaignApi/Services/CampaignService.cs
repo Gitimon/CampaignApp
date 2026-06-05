@@ -13,9 +13,20 @@ namespace CampaignApi.Services
             return await _campaignRepository.AddCampaign(campaign);
         }
 
+        public async Task<Campaign?> GetCampaign(int id)
+        {
+            return await _campaignRepository.GetCampaign(id);
+        }
+
         public async Task<IEnumerable<Campaign>> GetCampaigns()
         {
             return await _campaignRepository.GetCampaigns();
+        }
+
+        public async Task<Campaign> UpdateActiveStatus(Campaign campaign, bool active)
+        {
+            campaign.Active = active;
+            return await _campaignRepository.UpdateCampaign(campaign);
         }
     }
 }

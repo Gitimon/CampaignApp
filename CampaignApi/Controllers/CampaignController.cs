@@ -14,7 +14,7 @@ namespace CampaignApi.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCampaign(Campaign campaign)
         {
-            var result = _campaignService.AddCampaign(campaign);
+            await _campaignService.AddCampaign(campaign);
             return Created();
         }
 
@@ -23,6 +23,20 @@ namespace CampaignApi.Controllers
         {
             var campaigns = await _campaignService.GetCampaigns();
             return Ok(campaigns);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateActiveStatus(int id, bool active)
+        {
+            var campaign = await _campaignService.GetCampaign(id);
+
+            if (campaign is null)
+            {
+                return NotFound();
+            }
+
+            await _campaignService.UpdateActiveStatus(campaign, active);
+            return NoContent();
         }
     }
 }
