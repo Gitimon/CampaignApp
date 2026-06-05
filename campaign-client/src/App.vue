@@ -1,16 +1,12 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <CampaignTable />
+   <router-view></router-view>
 </template>
 
 <script>
-import CampaignTable from './components/CampaignTable.vue';
 
 export default {
   name: 'App',
-  components: {
-    CampaignTable
-  }
 }
 </script>
 

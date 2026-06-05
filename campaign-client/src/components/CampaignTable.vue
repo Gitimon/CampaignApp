@@ -44,6 +44,13 @@
                 </tr>
             </tbody>
         </table>
+        <div class="actions">
+            <router-link to="/campaigns/add">
+                <button>
+                    Add Campaign
+                </button>
+            </router-link>
+        </div>
     </div>
 </template>
 
@@ -76,23 +83,12 @@ async function fetchUsers() {
 }
 
 async function toggleActivation(campaign) {
-  console.log("id: ", campaign.id);
-  console.log("active: ", !campaign.active);
 
   const newValue = !campaign.active;
 
-
-  const testing = JSON.stringify({
-          id: campaign.id,
-          active: newValue
-        });
-  console.log("test: ", testing);
-
-  let testurl = `https://localhost:7043/Campaign?id=${campaign.id}&active=${newValue}`
-
   try {
 
-    const response = await fetch(testurl, {
+    const response = await fetch(`https://localhost:7043/Campaign?id=${campaign.id}&active=${newValue}`, {
       method: 'PUT'
     })
 
@@ -167,5 +163,22 @@ input:checked + .slider {
 
 input:checked + .slider::before {
   transform: translateX(24px);
+}
+
+.actions {
+  margin-top: 16px;
+}
+
+.actions button {
+  padding: 8px 16px;
+  background: #42b883;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.actions button:hover {
+  background: #369870;
 }
 </style>
