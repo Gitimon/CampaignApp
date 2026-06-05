@@ -18,6 +18,15 @@ builder.Services.AddDbContext<CampaignDbContext>(options =>
 builder.Services.AddScoped<ICampaignRepository, CampaignRepository>();
 builder.Services.AddScoped<ICampaignService, CampaignService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("LocalClientOrigin", policy => policy
+        .WithOrigins("http://localhost:8080")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -36,6 +45,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("LocalClientOrigin");
 
 app.MapControllers();
 
